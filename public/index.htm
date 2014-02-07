@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>angularjs test</title>
+	  <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" />
+	  <link rel="stylesheet" href="http://static.jstree.com/3.0.0-beta5/assets/dist/themes/default/style.min.css" />
+	  <link rel="stylesheet" href="app.css"/>
+  </head>
+  <body ng-app="myApp">
+    <div ng-controller="TreeDemoCtrl">
+      <h3>Example of ajax-driven jstree as AngularJS directive</h3>
+      <div class="part treeContainer" popover="Expand/collapse nodes, click on nodes" popover-trigger="mouseenter" popover-placement="right">
+        <div jstree children-url="treeUrl" selected-node="selectedTreeNode"></div>
+      </div>
+      <alert type="'info'" class="selectedNodeDisplay">selected node: {{selectedTreeNode}}</alert>
+      <button class="btn btn-default" ng-click="selectHomeFolder()">Select home folder</button>
+    </div>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+    <script type="text/javascript" src="http://static.jstree.com/3.0.0-beta5/assets/dist/jstree.min.js"></script>    
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.9/angular.min.js"></script>
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.10.0/ui-bootstrap-tpls.min.js"></script>
+    <script type="text/javascript" src="app.js"></script>
+    <script type="text/javascript" src="angular-jstree.js"></script>
+  </body>
+</html>
