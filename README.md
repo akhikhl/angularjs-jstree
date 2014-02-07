@@ -16,5 +16,5 @@ http://localhost:5050
 
 Copyright 2013-2014 (c) Andrey Hihlovskiy
 
-All versions, present and past, of gretty-plugin are licensed under [license.txt](MIT license).
+All versions, present and past, of gretty-plugin are licensed under [MIT license](license.txt).
 
