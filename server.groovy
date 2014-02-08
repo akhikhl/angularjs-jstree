@@ -1,5 +1,3 @@
-#!/usr/bin/env groovy
-
 @Grab('io.ratpack:ratpack-groovy:0.9.1')
 @Grab('io.ratpack:ratpack-jackson:0.9.1')
 @Grab('commons-codec:commons-codec:1.9')
