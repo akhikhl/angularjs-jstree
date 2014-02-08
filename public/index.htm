@@ -10,7 +10,7 @@
     <div ng-controller="TreeDemoCtrl">
       <h3>Example of ajax-driven jstree as AngularJS directive</h3>
       <div class="part treeContainer" popover="Expand/collapse nodes, click on nodes" popover-trigger="mouseenter" popover-placement="right">
-        <div jstree children-url="treeUrl" selected-node="selectedTreeNode"></div>
+        <div jstree children-url="treeUrl" path-to-ids-url="pathIds" selected-node="selectedTreeNode"></div>
       </div>
       <alert type="'info'" class="selectedNodeDisplay">selected node: {{selectedTreeNode}}</alert>
       <button class="btn btn-default" ng-click="selectHomeFolder()">Select home folder</button>

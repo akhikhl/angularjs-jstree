@@ -4,11 +4,14 @@ app.directive('jstree', function($timeout, $http) {
      require: '?ngModel',
      scope: {
        selectedNode: '=?',
-       childrenUrl: '=',
+       childrenUrl: '=?',
+       pathToIdsUrl: '=?',
        selectionChanged: '='
      },
      link: function(scope, element, attrs) {
        scope.selectedNode = scope.selectedNode || {};
+       scope.childrenUrl = scope.childrenUrl || 'treeChildren';
+       scope.pathToIdsUrl = scope.pathToIdsUrl || 'treePathToIds';
        var treeElement = $(element);
        var tree = treeElement.jstree({
          'core': {
@@ -54,19 +57,28 @@ app.directive('jstree', function($timeout, $http) {
        }      
        scope.$watch('selectedNode.id', function() {
          var selectedIds = treeElement.jstree('get_selected');
-         if(selectedIds.length != 1 || selectedIds[0] != scope.selectedNode.id) {
-           treeElement.jstree('deselect_node', treeElement.jstree('get_selected'));
-           treeElement.jstree('select_node', scope.selectedNode.id);
+         if((selectedIds.length == 0 && scope.selectedNode.id) 
+          || selectedIds.length != 1 || selectedIds[0] != scope.selectedNode.id) {
+           if(selectedIds.length != 0)
+             treeElement.jstree('deselect_node', treeElement.jstree('get_selected'));
+           if(scope.selectedNode.id)
+             treeElement.jstree('select_node', scope.selectedNode.id);
          }
        });
        scope.$watch('selectedNode.path', function() {
-         var selected = treeElement.jstree('get_selected', true);
-         var prevPath = selected.length ? selected[0].a_attr.path : null;
-         var newPath = scope.selectedNode.path
-         if((selected.length != 1 || prevPath != newPath) && newPath)
-           $http.get('/pathIds', { params: { path: newPath }}).then(function(data) {
-             expandAndSelect(data.data);
-           });
+         if(scope.pathToIdsUrl) {         
+           var selected = treeElement.jstree('get_selected', true);
+           var prevPath = selected.length ? selected[0].a_attr.path : null;
+           var newPath = scope.selectedNode.path
+           if(selected.length != 1 || prevPath != newPath) {
+             if(newPath)
+               $http.get(scope.pathToIdsUrl, { params: { path: newPath }}).then(function(data) {
+                 expandAndSelect(data.data);
+               });
+             else
+               scope.selectedNode.id = null
+           }
+         }
        });       
      }
   };
